@@ -12,7 +12,6 @@ function isPalindrome(str) {
   }
   return true;
 }
-
 console.log(isStringWithinLimit('проверяемая строка', 20));
 console.log(isStringWithinLimit('проверяемая строка', 18));
 console.log(isStringWithinLimit('проверяемая строка', 10));
