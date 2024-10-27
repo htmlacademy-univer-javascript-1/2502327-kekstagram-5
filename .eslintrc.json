@@ -12,8 +12,5 @@
     "noUiSlider": "readonly",
     "Pristine": "readonly"
   },
-  "extends": "htmlacademy/vanilla",
-  "rules": {
-    "no-console": "off"
-  }
+  "extends": "htmlacademy/vanilla"
 }
