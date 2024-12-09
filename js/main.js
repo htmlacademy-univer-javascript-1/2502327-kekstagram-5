@@ -7,6 +7,4 @@ const photos = generatePhotosArray();
 // Отображение миниатюр на странице
 if (photos && photos.length > 0) {
   displayThumbnails(photos);
-} else {
-  console.error('Нет данных для отображения фотографий');
 }
