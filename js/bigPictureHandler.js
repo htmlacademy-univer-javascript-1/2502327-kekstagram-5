@@ -33,17 +33,17 @@ const renderBigPicture = function (picture) {
     }
   };
 
+  const onEscKeyPress = (evt) => {
+    if (evt.key === 'Escape') {
+      closeModal();
+    }
+  };
+
   const closeModal = () => {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscKeyPress);
     commentsLoader.removeEventListener('click', showComments);
-  };
-
-  const onEscKeyPress = (evt) => {
-    if (evt.key === 'Escape') {
-      closeModal();
-    }
   };
 
   commentCountContainer.classList.remove('hidden');
