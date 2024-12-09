@@ -1,26 +1,23 @@
+const renderPictures = (picturesData) => {
+  const picturesContainer = document.querySelector('.pictures');
+  const fragment = document.createDocumentFragment();
+  const template = document.getElementById('picture').content;
 
-// pictureRenderer.js (изменённый код)
+  picturesData.forEach((picture) => {
+    const pictureElement = template.cloneNode(true);
+    const img = pictureElement.querySelector('.picture__img');
+    const likes = pictureElement.querySelector('.picture__likes');
+    const comments = pictureElement.querySelector('.picture__comments');
 
-const displayThumbnails = (photoData) => {
-  const container = document.querySelector('.pictures');
-  const docFragment = document.createDocumentFragment();
-  const pictureTemplate = document.querySelector('#picture').content;
+    pictureElement.querySelector('.picture').setAttribute('data-id', picture.id);
 
-  photoData.forEach(({ url, description, likes, comments }) => {
-    const element = pictureTemplate.cloneNode(true);
-    const imageElement = element.querySelector('.picture__img');
-    const likesElement = element.querySelector('.picture__likes');
-    const commentsElement = element.querySelector('.picture__comments');
-
-    imageElement.src = url;
-    imageElement.alt = description;
-    likesElement.textContent = likes;
-    commentsElement.textContent = comments;
-
-    docFragment.appendChild(element);
+    img.src = picture.url;
+    img.alt = picture.description;
+    likes.textContent = picture.likes;
+    comments.textContent = picture.comments.length;
+    fragment.appendChild(pictureElement);
   });
-
-  container.appendChild(docFragment);
+  picturesContainer.appendChild(fragment);
 };
 
-export { displayThumbnails };
+export { renderPictures };
