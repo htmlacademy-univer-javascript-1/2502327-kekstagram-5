@@ -31,16 +31,16 @@ const displayBigImage = (photoData) => {
     commentsContainer.appendChild(commentItem);
   });
 
-  const handleKeydown = (event) => {
-    if (event.key === 'Escape') {
-      closeModal();
-    }
-  };
-
   const closeModal = () => {
     modal.classList.add('hidden');
     bodyElement.classList.remove('modal-open');
     document.removeEventListener('keydown', handleKeydown);
+  };
+
+  const handleKeydown = (event) => {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
   };
 
   modal.classList.remove('hidden');
