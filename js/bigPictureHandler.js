@@ -12,42 +12,39 @@ const displayBigImage = (photoData) => {
 
   commentCounter.classList.add('hidden');
   loadMoreButton.classList.add('hidden');
-
   imageElement.src = photoData.url;
   imageElement.alt = photoData.description;
   descriptionElement.textContent = photoData.description;
-  likesElement.textContent = photoData.likes;
-  commentsElement.textContent = photoData.comments.length;
+  likesElement.textContent = `${photoData.likes}`;
+  commentsElement.textContent = `${photoData.comments.length}`;
 
   commentsContainer.innerHTML = '';
 
-  photoData.comments.forEach(({ avatar, name, message }) => {
-    const commentItem = document.createElement('li');
-    commentItem.classList.add('social__comment');
-    commentItem.innerHTML = `
-      <img class="social__picture" src="${avatar}" alt="${name}" width="35" height="35">
-      <p class="social__text">${message}</p>
-    `;
-    commentsContainer.appendChild(commentItem);
+  photoData.comments.forEach((comment) => {
+    const commentElement = document.createElement('li');
+    commentElement.className = 'social__comment';
+    commentElement.innerHTML = `
+      <img class="social__picture"
+        src="${comment.avatar}"
+        alt="${comment.name}"
+        width="35" height="35">
+      <p class="social__text">${comment.message}</p>`;
+    commentsContainer.appendChild(commentElement);
   });
-
-  const closeModal = () => {
-    modal.classList.add('hidden');
-    bodyElement.classList.remove('modal-open');
-    document.removeEventListener('keydown', handleKeydown);
-  };
-
-  const handleKeydown = (event) => {
-    if (event.key === 'Escape') {
-      closeModal();
-    }
-  };
 
   modal.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
 
-  document.addEventListener('keydown', handleKeydown);
-  modal.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
-};
+  const closeModal = () => {
+    modal.classList.add('hidden');
+    bodyElement.classList.remove('modal-open');
+    document.removeEventListener('keydown', onEscKeyPress);
+  };
 
-export { displayBigImage };
+  const onEscKeyPress = (evt) => {
+    if (evt.key === 'Escape') {
+      closeModal();
+    }
+  };
+
+  do
