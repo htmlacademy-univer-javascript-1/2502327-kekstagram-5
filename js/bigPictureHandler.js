@@ -31,8 +31,11 @@ const displayBigImage = (photoData) => {
     commentsContainer.appendChild(commentItem);
   });
 
-  modal.classList.remove('hidden');
-  bodyElement.classList.add('modal-open');
+  const handleKeydown = (event) => {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  };
 
   const closeModal = () => {
     modal.classList.add('hidden');
@@ -40,11 +43,8 @@ const displayBigImage = (photoData) => {
     document.removeEventListener('keydown', handleKeydown);
   };
 
-  const handleKeydown = (event) => {
-    if (event.key === 'Escape') {
-      closeModal();
-    }
-  };
+  modal.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
 
   document.addEventListener('keydown', handleKeydown);
   modal.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
