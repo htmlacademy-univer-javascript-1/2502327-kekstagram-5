@@ -13,7 +13,7 @@ const renderBigPicture = function (picture) {
   const commentsPerPage = 5;
   let currentCommentIndex = 0;
 
-  const showComments = () => {
+  const renderComments = () => {
     const commentsToShow = picture.comments.slice(currentCommentIndex, currentCommentIndex + commentsPerPage);
     commentsToShow.forEach((comment) => {
       const commentElement = document.createElement('li');
@@ -33,9 +33,9 @@ const renderBigPicture = function (picture) {
     }
   };
 
-  const onEscKeyPress = (evt) => {
+  const handleEscapeKey = (evt) => {
     if (evt.key === 'Escape') {
-      closeModal();
+      hideBigPicture();
     }
   };
 
