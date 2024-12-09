@@ -10,6 +10,19 @@ const renderBigPicture = function (picture) {
   const commentCountContainer = bigPicture.querySelector('.social__comment-count');
   const commentsLoader = bigPicture.querySelector('.comments-loader');
 
+  const onEscKeyPress = (evt) => {
+    if (evt.key === 'Escape') {
+      closeModal();
+    }
+  };
+
+  const closeModal = () => {
+    bigPicture.classList.add('hidden');
+    body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onEscKeyPress);
+    commentsLoader.removeEventListener('click', showComments);
+  };
+
   commentCountContainer.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
 
@@ -41,19 +54,6 @@ const renderBigPicture = function (picture) {
 
     if (currentCommentIndex >= picture.comments.length) {
       commentsLoader.classList.add('hidden');
-    }
-  };
-
-  const closeModal = () => {
-    bigPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onEscKeyPress);
-    commentsLoader.removeEventListener('click', showComments);
-  };
-
-  const onEscKeyPress = (evt) => {
-    if (evt.key === 'Escape') {
-      closeModal();
     }
   };
 
