@@ -1,6 +1,18 @@
 const modal = document.querySelector('.big-picture');
 const bodyElement = document.body;
 
+const closeModal = () => {
+  modal.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscKeyPress);
+};
+
+const onEscKeyPress = (evt) => {
+  if (evt.key === 'Escape') {
+    closeModal();
+  }
+};
+
 const displayBigImage = (photoData) => {
   const imageElement = modal.querySelector('.big-picture__img img');
   const descriptionElement = modal.querySelector('.social__caption');
@@ -34,18 +46,6 @@ const displayBigImage = (photoData) => {
 
   modal.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-
-  const closeModal = () => {
-    modal.classList.add('hidden');
-    bodyElement.classList.remove('modal-open');
-    document.removeEventListener('keydown', onEscKeyPress);
-  };
-
-  const onEscKeyPress = (evt) => {
-    if (evt.key === 'Escape') {
-      closeModal();
-    }
-  };
 
   document.addEventListener('keydown', onEscKeyPress);
   modal.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
