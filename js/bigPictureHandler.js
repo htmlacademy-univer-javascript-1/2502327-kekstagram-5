@@ -47,4 +47,8 @@ const displayBigImage = (photoData) => {
     }
   };
 
-  do
+  document.addEventListener('keydown', onEscKeyPress);
+  modal.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
+};
+
+export { displayBigImage };
