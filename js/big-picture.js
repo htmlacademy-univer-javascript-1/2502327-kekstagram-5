@@ -7,26 +7,37 @@ const imageDescription = fullViewContainer.querySelector('.social__caption');
 const commentStatusBlock = fullViewContainer.querySelector('.social__comment-count');
 const loadMoreButton = fullViewContainer.querySelector('.comments-loader');
 const closeButton = fullViewContainer.querySelector('.big-picture__cancel');
-const maxCommentsPerBatch = 5;
+const MAX_COMMENTS_PER_BATCH = 5;
 
 let totalComments = [];
 let loadedCommentCount = 0;
 
+function createCommentElement(comment) {
+  const listItem = document.createElement('li');
+  listItem.classList.add('social__comment');
+
+  const img = document.createElement('img');
+  img.classList.add('social__picture');
+  img.src = comment.avatar;
+  img.alt = comment.name;
+  img.width = 35;
+  img.height = 35;
+
+  const text = document.createElement('p');
+  text.classList.add('social__text');
+  text.textContent = comment.message;
+
+  listItem.appendChild(img);
+  listItem.appendChild(text);
+
+  return listItem;
+}
+
 function displayComments() {
-  const newComments = totalComments.slice(loadedCommentCount, loadedCommentCount + maxCommentsPerBatch);
+  const newComments = totalComments.slice(loadedCommentCount, loadedCommentCount + MAX_COMMENTS_PER_BATCH);
 
   newComments.forEach((comment) => {
-    const listItem = document.createElement('li');
-    listItem.classList.add('social__comment');
-
-    listItem.innerHTML = `
-      <img
-        class='social__picture'
-        src='${comment.avatar}'
-        alt='${comment.name}'
-        width='35' height='35'>
-      <p class='social__text'>${comment.message}</p>
-    `;
+    const listItem = createCommentElement(comment);
     commentList.appendChild(listItem);
   });
 
@@ -42,8 +53,8 @@ function displayComments() {
 function showFullView(photoData) {
   fullViewImage.src = photoData.url;
   fullViewImage.alt = photoData.description;
-  likeCounter.textContent = photoData.likes;
-  commentCounter.textContent = photoData.comments.length;
+  likeCounter.textContent = String(photoData.likes);
+  commentCounter.textContent = String(photoData.comments.length);
   imageDescription.textContent = photoData.description;
 
   commentList.innerHTML = '';
@@ -61,7 +72,7 @@ function showFullView(photoData) {
 
   if (totalComments.length > 0) {
     commentStatusBlock.classList.remove('hidden');
-    if (totalComments.length > maxCommentsPerBatch) {
+    if (totalComments.length > MAX_COMMENTS_PER_BATCH) {
       loadMoreButton.classList.remove('hidden');
     } else {
       loadMoreButton.classList.add('hidden');
