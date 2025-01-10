@@ -9,7 +9,9 @@ export function initForm(imageCollection, renderImageThumbnails) {
   const closeModalButton = modalOverlay.querySelector('.img-upload__cancel');
   const submitButton = uploadFormElement.querySelector('.img-upload__submit');
   const imagePreviewElement = modalOverlay.querySelector('.img-upload__preview img');
+  const filterSliderContainer = document.querySelector('.effect-level');
   const filterSlider = document.querySelector('.effect-level__slider');
+  const effectsRadioButtons = document.querySelectorAll('.effects__radio');
   const sliderValueElement = document.querySelector('.effect-level__value');
   const filterRadios = document.querySelectorAll('input[name="effect"]');
   const hashtagsField = uploadFormElement.querySelector('.text__hashtags');
@@ -65,6 +67,28 @@ export function initForm(imageCollection, renderImageThumbnails) {
     step: 1,
     connect: 'lower',
   });
+
+  // Функция для применения фильтров
+  function applyFilter(filter) {
+    if (filter === 'none') {
+      // Скрываем контейнер слайдера для фильтра "Оригинал"
+      filterSliderContainer.style.display = 'none';
+    } else {
+      // Показываем контейнер слайдера для других фильтров
+      filterSliderContainer.style.display = '';
+    }
+  }
+
+  // Навешиваем обработчики на радиокнопки
+  effectsRadioButtons.forEach((radioButton) => {
+    radioButton.addEventListener('change', (event) => {
+      const selectedFilter = event.target.value; // Получаем значение выбранного фильтра
+      applyFilter(selectedFilter);
+    });
+  });
+
+  // Изначально скрываем слайдер, если выбран "Оригинал"
+  applyFilter('none');
 
   filterSlider.classList.add('hidden'); // Скрываем слайдер при отсутствии эффекта
   document.querySelector('input[name="effect"][value="none"]').checked = true; // Устанавливаем стандартный фильтр

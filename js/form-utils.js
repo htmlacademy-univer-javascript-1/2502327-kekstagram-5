@@ -8,6 +8,7 @@ export function resetForm() {
   const sliderElement = document.querySelector('.effect-level__slider');
   const scaleValueField = document.querySelector('.scale__control--value');
   const submitButton = formElement.querySelector('.img-upload__submit');
+  const effectNoneRadio = document.querySelector('input[name="effect"][value="none"]');
 
   // Сбрасываем данные формы и начальное состояние
   formElement.reset();
@@ -24,7 +25,7 @@ export function resetForm() {
   // Возвращаем слайдер эффектов к исходному состоянию
   sliderElement.noUiSlider.set(100); // Максимальное значение интенсивности
   sliderElement.classList.add('hidden'); // Скрываем слайдер
-  document.querySelector('input[name="effect"][value="none"]').checked = true; // Сбрасываем выбранный эффект
+  effectNoneRadio.checked = true; // Сбрасываем выбранный эффект на "Оригинал"
   imagePreview.className = ''; // Убираем классы эффектов
   imagePreview.style.filter = ''; // Убираем применённый CSS-фильтр
 
@@ -32,6 +33,7 @@ export function resetForm() {
   overlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
+
 
 export function showMessage(messageType) {
   const templateElement = document.querySelector(`#${messageType}`).content.querySelector(`.${messageType}`);
